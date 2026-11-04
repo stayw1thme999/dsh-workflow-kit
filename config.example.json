@@ -1,0 +1,10 @@
+{
+  "workspace": "~/dsh-workspace",
+  "receivers": ["alice", "bob"],
+  "channelFile": "data/channel.jsonl",
+  "qqNotify": false,
+  "checkMinutes": 20,
+  "progressMinutes": 10,
+  "maxDoingPerReceiver": 3,
+  "redlines": ["不花钱", "不删除", "不对外提交", "不改生产", "不承诺"]
+}
