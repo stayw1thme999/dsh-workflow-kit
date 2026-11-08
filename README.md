@@ -97,9 +97,23 @@ DSH 官方 2026-10-31 开源了 [`deepseek-ai/dsh-superagent-prototype`](https:/
 
 ---
 
-## 四、三步安装
+## 四、安装
 
-### 1. 复制目录 + 配置
+两种装法：**当 DSH 插件装**（推荐，工具直接进模型工具列表）或**当脚本装**（不装插件，只跑 CLI）。
+
+### 方式 A：`dsh plugin add`（cordis bundle）
+
+```bash
+dsh plugin add github:stayw1thme999/dsh-workflow-kit
+```
+
+装完宿主会加载 `cordis.patch.yml`，注册 6 个工具：`workflow_list` / `workflow_take` / `workflow_report` / `workflow_submit` / `workflow_accept` / `workflow_block`。插件只做转发，真正的状态机在 `bin/wo.mjs` 里——CLI 用法和插件用法永远一致。
+
+> 插件形态需要宿主提供 `@deepseek-ai/dsh-tools`（peer dependency，DSH 自带）。
+
+### 方式 B：脚本安装（不装插件）
+
+#### 1. 复制目录 + 配置
 
 ```bash
 cp -r dsh-workflow-kit ~/dsh-workflow-kit && cd ~/dsh-workflow-kit
@@ -120,7 +134,7 @@ cp config.example.json config.json
 }
 ```
 
-### 2. 初始化 + 自检
+#### 2. 初始化 + 自检
 
 ```bash
 node bin/init.mjs        # 建目录/台账/接收方信箱（幂等）
@@ -129,7 +143,7 @@ node bin/selfcheck.mjs   # 15 项自检：配置/目录/权限/脱敏扫描/命�
 
 `init` 会把解析出的**绝对频道路径**回写进 `config.json`，保证所有脚本写同一个 `channel.jsonl`。
 
-### 3. 挂巡检提醒（每个接活会话挂一次）
+#### 3. 挂巡检提醒（每个接活会话挂一次）
 
 把 `docs/02-巡检prompt.md` 里那段作为提醒内容，间隔 20 分钟。
 
