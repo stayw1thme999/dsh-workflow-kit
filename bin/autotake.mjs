@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // 队列自动接取：每 20 分钟一次；每接收方做多挂 5 条 doing，做完下轮再接；
-// 「没活」= 所有接收方 queued 与 doing 全空；连续 1 小时没活 → 休眠到强制点（07:00 / 17:00 整点）
+// 「没活」= 所有接收方 queued 与 doing 全空；连续 1 小时没活 → 休眠到强制点（07:00 / 19:00 整点）
 // 用法：node autotake.mjs [接收方...]   默认全部接收方
 import fs from 'node:fs';
 import path from 'node:path';
@@ -12,7 +12,7 @@ const STATE = path.join(DATA, 'tasks', 'autotake-state.json');
 const CHAN = path.join(DATA, 'channel.jsonl');
 const POOL = path.join(DATA, 'workorders', 'pool.json');
 const WO = 'E:/qqagent-tools/work/派单方/wo.mjs';
-const FORCE_HOURS = [7, 17];
+const FORCE_HOURS = [7, 19];
 const IDLE_SLEEP_MIN = 60;
 const MAX_DOING = Number(process.env.AUTOTAKE_MAX || 5);   // 每接收方同时挂最多的 doing 数
 
