@@ -6,6 +6,15 @@
 
 ### 新增
 
+### 新增
+
+- **2026-11-07 17:20｜补 cordis.patch.yml，改成可 `dsh plugin add` 的插件形态**
+  - 为什么：dshbase 维护者回复（issue #250）：目录只收 cordis / dsh.bundle 形态，要求补 `cordis.patch.yml` 把 workflow_* 工具挂进宿主。
+  - 改动：新增 `lib/dsh-plugin.mjs`（export name + apply(ctx)，注册 workflow_list/take/report/submit/accept/block 六个工具，内部 spawn `bin/wo.mjs` 转发，不重写状态机）、`cordis.patch.yml`（单条 insert 行）、`scripts/test-plugin.mjs`（假 ctx 冒烟）；`package.json` 补 `main`/`exports`/`dsh.bundle.patch`/peerDeps(@deepseek-ai/dsh-tools)/keywords(dsh-plugin)，版本 0.1.0→0.2.0；README 安装章改成「方式 A 插件 / 方式 B 脚本」。
+  - 验证：`node --check` 两文件 exit 0；`node scripts/test-plugin.mjs` → 注册 6 个工具、workflow_list 实跑输出「（没有符合条件的工单）」、exit 0；脱敏扫描 0 命中；selfcheck 15/15。
+  - 回滚：删 `lib/dsh-plugin.mjs`、`cordis.patch.yml`、`scripts/test-plugin.mjs`，package.json 回退到 0.1.0 版本。
+
+
 - **2026-11-04 22:45｜拆解层审阅后的返工复验**
   - 为什么：拆解层审完 kit 做了三处修订（删 e2e 残留 `config.json`、删冗余 `compare.html`、修 README #10 指向不存在的 `patrol.mjs`），要求重跑 0039 端到端。
   - 改动：无新增代码，仅复验；确认包内不再含 `config.json`，README #10 已指 `docs/02-巡检prompt.md`。
