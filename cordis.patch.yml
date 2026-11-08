@@ -1,0 +1,9 @@
+# dsh-workflow-kit bundle layer.
+#
+# 把 Host half（lib/dsh-plugin.mjs）作为一条 Loader 行装进宿主，
+# 注册 workflow_list / workflow_take / workflow_report /
+# workflow_submit / workflow_accept / workflow_block 六个工具。
+# 纯本地区块：无 client 半边、无网络调用、无外部账号。
+- insert:
+    - id: dsh-workflow-kit
+      name: dsh-workflow-kit
